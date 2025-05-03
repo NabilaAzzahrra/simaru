@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import InputGroup from "../FormElements/InputGroup";
 import { Checkbox } from "../FormElements/checkbox";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from 'next/navigation';
 
 export default function SigninWithPassword() {
   const [data, setData] = useState({
@@ -21,7 +21,7 @@ export default function SigninWithPassword() {
       [e.target.name]: e.target.value,
     });
   };
-
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -48,8 +48,7 @@ export default function SigninWithPassword() {
       console.log("Success:", result);
 
       localStorage.setItem("token", result.accessToken); 
-      const navigate = useNavigate();
-      navigate("/");
+      router.push('/');
     } catch (err) {
       console.log("Error:", err);
     } finally {
